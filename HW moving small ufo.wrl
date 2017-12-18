@@ -1,0 +1,97 @@
+#VRML V2.0 utf8
+
+#change the initial point of view
+DEF rider Viewpoint{
+#  description "overview"
+  position 0 5 50
+}# end viewpoint
+
+
+DEF ball Transform {
+
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 0
+        } # end material
+      } # end appearance
+      geometry Sphere {
+        radius 1.8
+      } # end geometry
+    } # end shape
+  ] # end children
+} # end ball
+
+
+DEF ball2 Transform {
+
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 0 1
+        } # end material
+      } # end appearance
+      geometry Cone{
+            bottomRadius 2.5
+ 	    height 3.5
+      } # end geometry
+    } # end shape
+  ] # end children
+} # end ball2
+
+
+
+
+
+DEF clock TimeSensor {
+  loop TRUE
+  cycleInterval 10
+}
+
+
+DEF thePath PositionInterpolator {
+  key [
+    0
+    .25	                                         
+    .50
+    .75	      
+    1	      
+  ] # end key
+
+  keyValue [
+            -20   0   20,                                   
+             20   0   20,                                  
+             20   10  20,  
+            -20   10  20,  
+            -20   0   20,  
+  ] # end points
+} # end thePath
+
+
+DEF thePath2 PositionInterpolator {
+  key [
+    0
+    .25	                                         
+    .50
+    .75	      
+    1	      
+  ] # end key
+
+  keyValue [
+            -20   0   20,                                   
+             20   0   20,                                  
+             20   10  20,  
+            -20   10  20,  
+            -20   0   20,    ] # end points
+} # end thePath2
+
+
+
+ROUTE clock.fraction_changed TO thePath.set_fraction
+ROUTE thePath.value_changed TO ball.set_translation
+
+ROUTE clock.fraction_changed TO thePath2.set_fraction
+ROUTE thePath2.value_changed TO ball2.set_translation
+

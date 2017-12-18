@@ -1,0 +1,9 @@
+#VRML V1.0 ascii
+
+PointLight {
+	location -2.5 0 0
+	color 0 1 0
+}
+
+Cone {
+}

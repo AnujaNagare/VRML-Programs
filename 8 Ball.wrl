@@ -1,0 +1,46 @@
+#VRML V2.0 utf8
+
+DEF MovingBall Viewpoint{
+  position 0 5 50
+}
+
+DEF ball Transform {
+
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 0
+        } 
+      } 
+      geometry Sphere {
+        radius 4.5
+      } 
+    } 
+  ] 
+} 
+
+
+DEF clock TimeSensor {
+  loop TRUE
+  cycleInterval 2
+}
+
+
+DEF thePath PositionInterpolator {
+  key [
+    0
+    .50
+    1	      
+  ] 
+  keyValue [
+            0   0   0,                                   
+            0   20  0,  
+            0   0   0,  
+  ] 
+} 
+
+ROUTE clock.fraction_changed TO thePath.set_fraction
+ROUTE thePath.value_changed TO ball.set_translation
+
+

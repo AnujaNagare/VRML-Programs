@@ -1,0 +1,46 @@
+#VRML V2.0 utf8
+
+#Describes how the timer is used to move an object
+
+DEF BALL Transform{
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 0 1
+        } # end material
+      } # end appearance
+
+      geometry Sphere {
+        radius .25
+      } # end sphere
+    } # end shape
+  ] # end children
+} # end transform
+
+DEF PATH PositionInterpolator {
+  key [
+    0
+    .25
+    .5
+    .75
+    1
+  ] # end key
+
+  keyValue [
+    -3  0  0,
+     0  3  0,
+     3  0  0,
+     0 -3  0
+    -3  0  0,
+  ] # end keyValue
+} # end path
+
+DEF TIMER TimeSensor {
+  loop TRUE
+  cycleInterval 5
+} # end timer
+
+ROUTE TIMER.fraction_changed TO PATH.set_fraction
+ROUTE PATH.value_changed TO BALL.translation
+
